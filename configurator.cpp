@@ -48,12 +48,27 @@ void Configurator::on_addClientButton_clicked() {
         ui->connectedList->setItemWidget(widgetItem, widget);
     } catch(...) {
         QMessageBox msgBox;
-        msgBox.setText("You are already connected to this controller");
+        msgBox.setText("Controller not available or already connected");
         msgBox.exec();
     }
+}
 
-
-
+void Configurator::resetButtons() {
+    ui->tasksButton->setStyleSheet("");
+    ui->comandsButton->setStyleSheet("");
+    ui->updateButton->setStyleSheet("");
+}
+void Configurator::on_tasksButton_clicked() {
+    resetButtons();
+    ui->tasksButton->setStyleSheet("color:black;font-size:20px;");
+}
+void Configurator::on_comandsButton_clicked() {
+    resetButtons();
+    ui->comandsButton->setStyleSheet("color:black;font-size:20px;");
+}
+void Configurator::on_updateButton_clicked() {
+    resetButtons();
+    ui->updateButton->setStyleSheet("color:black;font-size:20px;");
 }
 Configurator::~Configurator()
 {
