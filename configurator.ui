@@ -112,13 +112,13 @@
             <string>Clients connected</string>
            </property>
           </widget>
-          <widget class="QListView" name="connectedListView">
+          <widget class="QListWidget" name="connectedList">
            <property name="geometry">
             <rect>
              <x>0</x>
              <y>90</y>
              <width>241</width>
-             <height>91</height>
+             <height>151</height>
             </rect>
            </property>
            <property name="styleSheet">
@@ -131,7 +131,7 @@
            <property name="geometry">
             <rect>
              <x>10</x>
-             <y>190</y>
+             <y>250</y>
              <width>71</width>
              <height>21</height>
             </rect>
