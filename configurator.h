@@ -74,8 +74,12 @@ public:
 private:
     Ui::Configurator *ui;
     std::vector<Swockets*> handles{};
+    void resetButtons();
 private slots:
     void on_addClientButton_clicked();
+    void on_tasksButton_clicked();
+    void on_comandsButton_clicked();
+    void on_updateButton_clicked();
 };
 
 #endif // CONFIGURATOR_H
