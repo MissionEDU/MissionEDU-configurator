@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>898</width>
-    <height>449</height>
+    <height>611</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,7 +37,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
-         <widget class="QWidget" name="widget" native="true">
+         <widget class="QWidget" name="sidebarWidget" native="true">
           <property name="minimumSize">
            <size>
             <width>240</width>
@@ -149,6 +149,10 @@
     font:  10px;
     min-width: 5em;
     padding: 2px;
+}
+QPushButton:hover {
+    background-color: #ee6853;
+	border-color: #ee6853;
 }</string>
            </property>
            <property name="text">
@@ -158,7 +162,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QWidget" name="widget_2" native="true">
+         <widget class="QWidget" name="opWidget" native="true">
           <property name="styleSheet">
            <string notr="true">QPushButton {
     background-color: none;
@@ -171,7 +175,10 @@
 	font-size: 16px;
 	text-align: bottom;
 	margin-bottom: 5px;
-}</string>
+}
+QPushButton:hover {
+     color: #ee6853;
+ }</string>
           </property>
           <widget class="QWidget" name="horizontalLayoutWidget">
            <property name="geometry">
@@ -184,40 +191,7 @@
            </property>
            <layout class="QGridLayout" name="gridLayout_2">
             <item row="0" column="0">
-             <widget class="QPushButton" name="pushButton_2">
-              <property name="minimumSize">
-               <size>
-                <width>119</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>-1</pointsize>
-                <weight>62</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QPushButton {
-	color: black;
-	font-size: 20px;
-	margin-bottom: 4px;
-}</string>
-              </property>
-              <property name="text">
-               <string>Tasks</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QPushButton" name="pushButton_3">
+             <widget class="QPushButton" name="tasksButton">
               <property name="minimumSize">
                <size>
                 <width>94</width>
@@ -236,6 +210,41 @@
                 <weight>62</weight>
                 <bold>true</bold>
                </font>
+              </property>
+              <property name="cursor">
+               <cursorShape>ArrowCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>Tasks</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QPushButton" name="comandsButton">
+              <property name="minimumSize">
+               <size>
+                <width>94</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>-1</pointsize>
+                <weight>62</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="cursor">
+               <cursorShape>ArrowCursor</cursorShape>
               </property>
               <property name="styleSheet">
                <string notr="true">
@@ -247,7 +256,7 @@
              </widget>
             </item>
             <item row="0" column="2">
-             <widget class="QPushButton" name="pushButton_4">
+             <widget class="QPushButton" name="updateButton">
               <property name="minimumSize">
                <size>
                 <width>94</width>
@@ -267,6 +276,9 @@
                 <bold>true</bold>
                </font>
               </property>
+              <property name="cursor">
+               <cursorShape>ArrowCursor</cursorShape>
+              </property>
               <property name="styleSheet">
                <string notr="true"/>
               </property>
@@ -276,6 +288,382 @@
              </widget>
             </item>
            </layout>
+          </widget>
+          <widget class="Line" name="line">
+           <property name="geometry">
+            <rect>
+             <x>30</x>
+             <y>50</y>
+             <width>331</width>
+             <height>20</height>
+            </rect>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+          <widget class="QWidget" name="tasksWidget" native="true">
+           <property name="geometry">
+            <rect>
+             <x>30</x>
+             <y>80</y>
+             <width>601</width>
+             <height>491</height>
+            </rect>
+           </property>
+           <widget class="QLabel" name="label_5">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>250</y>
+              <width>101</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Open Sans</family>
+              <pointsize>16</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Edit Task</string>
+            </property>
+           </widget>
+           <widget class="QComboBox" name="comboBox">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>270</y>
+              <width>221</width>
+              <height>26</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Open Sans</family>
+             </font>
+            </property>
+            <item>
+             <property name="text">
+              <string>asdf</string>
+             </property>
+            </item>
+           </widget>
+           <widget class="QLabel" name="label_7">
+            <property name="geometry">
+             <rect>
+              <x>250</x>
+              <y>270</y>
+              <width>51</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Open Sans</family>
+             </font>
+            </property>
+            <property name="text">
+             <string>00000</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_6">
+            <property name="geometry">
+             <rect>
+              <x>230</x>
+              <y>270</y>
+              <width>31</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Open Sans</family>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>UID</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_4">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>10</y>
+              <width>101</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Open Sans</family>
+              <pointsize>16</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Add Task</string>
+            </property>
+           </widget>
+           <widget class="QLineEdit" name="lineEdit">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>30</y>
+              <width>301</width>
+              <height>21</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLineEdit" name="lineEdit_2">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>80</y>
+              <width>301</width>
+              <height>21</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_8">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>50</y>
+              <width>211</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Task Name</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_9">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>100</y>
+              <width>211</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Short Description</string>
+            </property>
+           </widget>
+           <widget class="QPlainTextEdit" name="plainTextEdit">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>130</y>
+              <width>301</width>
+              <height>61</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_10">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>190</y>
+              <width>211</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Long Description</string>
+            </property>
+           </widget>
+           <widget class="QListWidget" name="listWidget">
+            <property name="geometry">
+             <rect>
+              <x>330</x>
+              <y>50</y>
+              <width>171</width>
+              <height>141</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_11">
+            <property name="geometry">
+             <rect>
+              <x>330</x>
+              <y>30</y>
+              <width>171</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Select Functions</string>
+            </property>
+           </widget>
+           <widget class="QLineEdit" name="lineEdit_3">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>310</y>
+              <width>301</width>
+              <height>21</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLineEdit" name="lineEdit_4">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>360</y>
+              <width>301</width>
+              <height>21</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QPlainTextEdit" name="plainTextEdit_2">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>410</y>
+              <width>301</width>
+              <height>61</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_12">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>330</y>
+              <width>301</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Task Name</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_13">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>380</y>
+              <width>301</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Short Description</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_14">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>470</y>
+              <width>301</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Long Description</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_15">
+            <property name="geometry">
+             <rect>
+              <x>330</x>
+              <y>310</y>
+              <width>171</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Select Functions</string>
+            </property>
+           </widget>
+           <widget class="QListWidget" name="listWidget_2">
+            <property name="geometry">
+             <rect>
+              <x>330</x>
+              <y>330</y>
+              <width>171</width>
+              <height>141</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="addClientButton_2">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>210</y>
+              <width>71</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{}
+QPushButton {
+    background-color: #ff7964;
+    border-style: none;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: #ff7964;
+    font:  10px;
+    min-width: 5em;
+    padding: 2px;
+	color: white;
+	text-align: center;
+}
+QPushButton:hover {
+    background-color: #ee6853;
+	border-color: #ee6853;
+}</string>
+            </property>
+            <property name="text">
+             <string>Add</string>
+            </property>
+           </widget>
+          </widget>
+          <widget class="QPushButton" name="addClientButton_3">
+           <property name="geometry">
+            <rect>
+             <x>30</x>
+             <y>570</y>
+             <width>71</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton{}
+QPushButton {
+    background-color: #ff7964;
+    border-style: none;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: #ff7964;
+    font:  10px;
+    min-width: 5em;
+    padding: 2px;
+	color: white;
+	text-align: center;
+}
+QPushButton:hover {
+    background-color: #ee6853;
+	border-color: #ee6853;
+}</string>
+           </property>
+           <property name="text">
+            <string>Edit</string>
+           </property>
           </widget>
          </widget>
         </item>
