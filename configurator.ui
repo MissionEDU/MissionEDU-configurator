@@ -308,7 +308,7 @@ QPushButton:hover {
              <x>30</x>
              <y>80</y>
              <width>601</width>
-             <height>491</height>
+             <height>521</height>
             </rect>
            </property>
            <widget class="QLabel" name="label_5">
@@ -330,7 +330,7 @@ QPushButton:hover {
              <string>Edit Task</string>
             </property>
            </widget>
-           <widget class="QComboBox" name="comboBox">
+           <widget class="QComboBox" name="editChooseCombobox">
             <property name="geometry">
              <rect>
               <x>0</x>
@@ -350,7 +350,7 @@ QPushButton:hover {
              </property>
             </item>
            </widget>
-           <widget class="QLabel" name="label_7">
+           <widget class="QLabel" name="editUIDLabel">
             <property name="geometry">
              <rect>
               <x>250</x>
@@ -410,7 +410,7 @@ QPushButton:hover {
              <string>Add Task</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit">
+           <widget class="QLineEdit" name="addTaskName">
             <property name="geometry">
              <rect>
               <x>0</x>
@@ -420,7 +420,7 @@ QPushButton:hover {
              </rect>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_2">
+           <widget class="QLineEdit" name="addTaskShortDesc">
             <property name="geometry">
              <rect>
               <x>0</x>
@@ -456,7 +456,7 @@ QPushButton:hover {
              <string>Short Description</string>
             </property>
            </widget>
-           <widget class="QPlainTextEdit" name="plainTextEdit">
+           <widget class="QPlainTextEdit" name="addTaskLongDesc">
             <property name="geometry">
              <rect>
               <x>0</x>
@@ -479,7 +479,7 @@ QPushButton:hover {
              <string>Long Description</string>
             </property>
            </widget>
-           <widget class="QListWidget" name="listWidget">
+           <widget class="QListWidget" name="addSelectFunctions">
             <property name="geometry">
              <rect>
               <x>330</x>
@@ -502,7 +502,7 @@ QPushButton:hover {
              <string>Select Functions</string>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_3">
+           <widget class="QLineEdit" name="editTaskName">
             <property name="geometry">
              <rect>
               <x>0</x>
@@ -512,7 +512,7 @@ QPushButton:hover {
              </rect>
             </property>
            </widget>
-           <widget class="QLineEdit" name="lineEdit_4">
+           <widget class="QLineEdit" name="editTaskShortDesc">
             <property name="geometry">
              <rect>
               <x>0</x>
@@ -522,7 +522,7 @@ QPushButton:hover {
              </rect>
             </property>
            </widget>
-           <widget class="QPlainTextEdit" name="plainTextEdit_2">
+           <widget class="QPlainTextEdit" name="editTaskLongDesc">
             <property name="geometry">
              <rect>
               <x>0</x>
@@ -584,7 +584,7 @@ QPushButton:hover {
              <string>Select Functions</string>
             </property>
            </widget>
-           <widget class="QListWidget" name="listWidget_2">
+           <widget class="QListWidget" name="editSelectFunctions">
             <property name="geometry">
              <rect>
               <x>330</x>
@@ -594,7 +594,7 @@ QPushButton:hover {
              </rect>
             </property>
            </widget>
-           <widget class="QPushButton" name="addClientButton_2">
+           <widget class="QPushButton" name="addTaskButton">
             <property name="geometry">
              <rect>
               <x>0</x>
@@ -629,21 +629,20 @@ QPushButton:hover {
              <string>Add</string>
             </property>
            </widget>
-          </widget>
-          <widget class="QPushButton" name="addClientButton_3">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>570</y>
-             <width>71</width>
-             <height>31</height>
-            </rect>
-           </property>
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QPushButton{}
+           <widget class="QPushButton" name="editTaskButton">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>490</y>
+              <width>71</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{}
 QPushButton {
     background-color: #ff7964;
     border-style: none;
@@ -660,10 +659,398 @@ QPushButton:hover {
     background-color: #ee6853;
 	border-color: #ee6853;
 }</string>
+            </property>
+            <property name="text">
+             <string>Edit</string>
+            </property>
+           </widget>
+           <zorder>label_5</zorder>
+           <zorder>editChooseCombobox</zorder>
+           <zorder>editUIDLabel</zorder>
+           <zorder>label_6</zorder>
+           <zorder>label_4</zorder>
+           <zorder>addTaskName</zorder>
+           <zorder>addTaskShortDesc</zorder>
+           <zorder>label_8</zorder>
+           <zorder>label_9</zorder>
+           <zorder>addTaskLongDesc</zorder>
+           <zorder>label_10</zorder>
+           <zorder>addSelectFunctions</zorder>
+           <zorder>label_11</zorder>
+           <zorder>editTaskName</zorder>
+           <zorder>editTaskShortDesc</zorder>
+           <zorder>editTaskLongDesc</zorder>
+           <zorder>label_12</zorder>
+           <zorder>label_13</zorder>
+           <zorder>label_14</zorder>
+           <zorder>label_15</zorder>
+           <zorder>editSelectFunctions</zorder>
+           <zorder>addTaskButton</zorder>
+           <zorder>editTaskButton</zorder>
+           <zorder>commandWidget</zorder>
+           <zorder>commandWidget</zorder>
+           <zorder>commandWidget</zorder>
+          </widget>
+          <widget class="QWidget" name="commandWidget" native="true">
+           <property name="geometry">
+            <rect>
+             <x>30</x>
+             <y>80</y>
+             <width>601</width>
+             <height>521</height>
+            </rect>
            </property>
-           <property name="text">
-            <string>Edit</string>
+           <property name="styleSheet">
+            <string notr="true"/>
            </property>
+           <widget class="QLabel" name="label_16">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>10</y>
+              <width>181</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Open Sans</family>
+              <pointsize>16</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Add Command</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_17">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>250</y>
+              <width>171</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Open Sans</family>
+              <pointsize>16</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Edit Command</string>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="addClientButton_4">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>210</y>
+              <width>71</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{}
+QPushButton {
+    background-color: #ff7964;
+    border-style: none;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: #ff7964;
+    font:  10px;
+    min-width: 5em;
+    padding: 2px;
+	color: white;
+	text-align: center;
+}
+QPushButton:hover {
+    background-color: #ee6853;
+	border-color: #ee6853;
+}</string>
+            </property>
+            <property name="text">
+             <string>Add</string>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="addClientButton_5">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>490</y>
+              <width>71</width>
+              <height>31</height>
+             </rect>
+            </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPushButton{}
+QPushButton {
+    background-color: #ff7964;
+    border-style: none;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: #ff7964;
+    font:  10px;
+    min-width: 5em;
+    padding: 2px;
+	color: white;
+	text-align: center;
+}
+QPushButton:hover {
+    background-color: #ee6853;
+	border-color: #ee6853;
+}</string>
+            </property>
+            <property name="text">
+             <string>Edit</string>
+            </property>
+           </widget>
+           <widget class="QComboBox" name="editChoose">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>270</y>
+              <width>221</width>
+              <height>26</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_18">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>330</y>
+              <width>91</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Function Name</string>
+            </property>
+           </widget>
+           <widget class="QLineEdit" name="editCommandName">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>310</y>
+              <width>221</width>
+              <height>21</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QPlainTextEdit" name="editCommandCode">
+            <property name="geometry">
+             <rect>
+              <x>3</x>
+              <y>358</y>
+              <width>221</width>
+              <height>101</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_19">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>460</y>
+              <width>60</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Code</string>
+            </property>
+           </widget>
+           <widget class="QComboBox" name="editParameterChoose">
+            <property name="geometry">
+             <rect>
+              <x>270</x>
+              <y>350</y>
+              <width>104</width>
+              <height>26</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QComboBox" name="editReturnChoose">
+            <property name="geometry">
+             <rect>
+              <x>270</x>
+              <y>310</y>
+              <width>104</width>
+              <height>26</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_20">
+            <property name="geometry">
+             <rect>
+              <x>270</x>
+              <y>330</y>
+              <width>101</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Return</string>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_21">
+            <property name="geometry">
+             <rect>
+              <x>270</x>
+              <y>370</y>
+              <width>101</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Parameter</string>
+            </property>
+           </widget>
+           <widget class="QLineEdit" name="editParameterName">
+            <property name="geometry">
+             <rect>
+              <x>270</x>
+              <y>390</y>
+              <width>101</width>
+              <height>21</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_22">
+            <property name="geometry">
+             <rect>
+              <x>270</x>
+              <y>410</y>
+              <width>101</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Parameter Name</string>
+            </property>
+           </widget>
+           <widget class="QLineEdit" name="addCommandName">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>30</y>
+              <width>221</width>
+              <height>21</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_23">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>50</y>
+              <width>91</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Function Name</string>
+            </property>
+           </widget>
+           <widget class="QPlainTextEdit" name="addCommandCode">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>80</y>
+              <width>221</width>
+              <height>101</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_24">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>180</y>
+              <width>60</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Code</string>
+            </property>
+           </widget>
+           <widget class="QComboBox" name="addReturnChoose">
+            <property name="geometry">
+             <rect>
+              <x>260</x>
+              <y>30</y>
+              <width>104</width>
+              <height>26</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_25">
+            <property name="geometry">
+             <rect>
+              <x>260</x>
+              <y>50</y>
+              <width>101</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Return</string>
+            </property>
+           </widget>
+           <widget class="QComboBox" name="addParameterChoose">
+            <property name="geometry">
+             <rect>
+              <x>260</x>
+              <y>70</y>
+              <width>104</width>
+              <height>26</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_26">
+            <property name="geometry">
+             <rect>
+              <x>260</x>
+              <y>90</y>
+              <width>101</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Parameter</string>
+            </property>
+           </widget>
+           <widget class="QLineEdit" name="addParameterName">
+            <property name="geometry">
+             <rect>
+              <x>260</x>
+              <y>110</y>
+              <width>101</width>
+              <height>21</height>
+             </rect>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_27">
+            <property name="geometry">
+             <rect>
+              <x>260</x>
+              <y>130</y>
+              <width>101</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>Parameter Name</string>
+            </property>
+           </widget>
           </widget>
          </widget>
         </item>

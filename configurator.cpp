@@ -9,6 +9,8 @@ Configurator::Configurator(QWidget *parent) :
     ui(new Ui::Configurator)
 {
     ui->setupUi(this);
+    ui->commandWidget->hide();
+    ui->tasksWidget->hide();
 }
 
 void Configurator::on_addClientButton_clicked() {
@@ -56,19 +58,26 @@ void Configurator::on_addClientButton_clicked() {
 void Configurator::resetButtons() {
     ui->tasksButton->setStyleSheet("");
     ui->comandsButton->setStyleSheet("");
-    ui->updateButton->setStyleSheet("");
+    //ui->updateButton->setStyleSheet("");
+    ui->commandWidget->hide();
+    ui->tasksWidget->hide();
 }
 void Configurator::on_tasksButton_clicked() {
     resetButtons();
     ui->tasksButton->setStyleSheet("color:black;font-size:20px;");
+    ui->tasksWidget->show();
 }
 void Configurator::on_comandsButton_clicked() {
     resetButtons();
     ui->comandsButton->setStyleSheet("color:black;font-size:20px;");
+    ui->commandWidget->show();
 }
 void Configurator::on_updateButton_clicked() {
-    resetButtons();
-    ui->updateButton->setStyleSheet("color:black;font-size:20px;");
+    //resetButtons();
+    //ui->updateButton->setStyleSheet("color:black;font-size:20px;");
+    QMessageBox msgBox;
+    msgBox.setText("Updating not yet available, check missionedu.org/updates");
+    msgBox.exec();
 }
 Configurator::~Configurator()
 {
