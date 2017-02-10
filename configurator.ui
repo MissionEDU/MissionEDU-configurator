@@ -247,8 +247,7 @@ QPushButton:hover {
                <cursorShape>ArrowCursor</cursorShape>
               </property>
               <property name="styleSheet">
-               <string notr="true">
-</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string>Commands</string>
@@ -293,9 +292,9 @@ QPushButton:hover {
            <property name="geometry">
             <rect>
              <x>30</x>
-             <y>50</y>
+             <y>39</y>
              <width>331</width>
-             <height>20</height>
+             <height>2</height>
             </rect>
            </property>
            <property name="orientation">
@@ -344,11 +343,6 @@ QPushButton:hover {
               <family>Open Sans</family>
              </font>
             </property>
-            <item>
-             <property name="text">
-              <string>asdf</string>
-             </property>
-            </item>
            </widget>
            <widget class="QLabel" name="editUIDLabel">
             <property name="geometry">
@@ -664,32 +658,6 @@ QPushButton:hover {
              <string>Edit</string>
             </property>
            </widget>
-           <zorder>label_5</zorder>
-           <zorder>editChooseCombobox</zorder>
-           <zorder>editUIDLabel</zorder>
-           <zorder>label_6</zorder>
-           <zorder>label_4</zorder>
-           <zorder>addTaskName</zorder>
-           <zorder>addTaskShortDesc</zorder>
-           <zorder>label_8</zorder>
-           <zorder>label_9</zorder>
-           <zorder>addTaskLongDesc</zorder>
-           <zorder>label_10</zorder>
-           <zorder>addSelectFunctions</zorder>
-           <zorder>label_11</zorder>
-           <zorder>editTaskName</zorder>
-           <zorder>editTaskShortDesc</zorder>
-           <zorder>editTaskLongDesc</zorder>
-           <zorder>label_12</zorder>
-           <zorder>label_13</zorder>
-           <zorder>label_14</zorder>
-           <zorder>label_15</zorder>
-           <zorder>editSelectFunctions</zorder>
-           <zorder>addTaskButton</zorder>
-           <zorder>editTaskButton</zorder>
-           <zorder>commandWidget</zorder>
-           <zorder>commandWidget</zorder>
-           <zorder>commandWidget</zorder>
           </widget>
           <widget class="QWidget" name="commandWidget" native="true">
            <property name="geometry">
@@ -701,7 +669,8 @@ QPushButton:hover {
             </rect>
            </property>
            <property name="styleSheet">
-            <string notr="true"/>
+            <string notr="true">
+</string>
            </property>
            <widget class="QLabel" name="label_16">
             <property name="geometry">
@@ -847,11 +816,16 @@ QPushButton:hover {
            <widget class="QPlainTextEdit" name="editCommandCode">
             <property name="geometry">
              <rect>
-              <x>3</x>
-              <y>358</y>
+              <x>0</x>
+              <y>360</y>
               <width>221</width>
               <height>101</height>
              </rect>
+            </property>
+            <property name="font">
+             <font>
+              <family>Menlo</family>
+             </font>
             </property>
            </widget>
            <widget class="QLabel" name="label_19">
@@ -876,6 +850,26 @@ QPushButton:hover {
               <height>26</height>
              </rect>
             </property>
+            <item>
+             <property name="text">
+              <string>int</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>double</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>bool</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>void</string>
+             </property>
+            </item>
            </widget>
            <widget class="QComboBox" name="editReturnChoose">
             <property name="geometry">
@@ -886,6 +880,26 @@ QPushButton:hover {
               <height>26</height>
              </rect>
             </property>
+            <item>
+             <property name="text">
+              <string>int</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>double</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>bool</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>void</string>
+             </property>
+            </item>
            </widget>
            <widget class="QLabel" name="label_20">
             <property name="geometry">
@@ -968,6 +982,11 @@ QPushButton:hover {
               <height>101</height>
              </rect>
             </property>
+            <property name="font">
+             <font>
+              <family>Menlo</family>
+             </font>
+            </property>
            </widget>
            <widget class="QLabel" name="label_24">
             <property name="geometry">
@@ -987,10 +1006,30 @@ QPushButton:hover {
              <rect>
               <x>260</x>
               <y>30</y>
-              <width>104</width>
+              <width>101</width>
               <height>26</height>
              </rect>
             </property>
+            <item>
+             <property name="text">
+              <string>int</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>double</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>bool</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>void</string>
+             </property>
+            </item>
            </widget>
            <widget class="QLabel" name="label_25">
             <property name="geometry">
@@ -1010,10 +1049,30 @@ QPushButton:hover {
              <rect>
               <x>260</x>
               <y>70</y>
-              <width>104</width>
+              <width>101</width>
               <height>26</height>
              </rect>
             </property>
+            <item>
+             <property name="text">
+              <string>int</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>double</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>bool</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>void</string>
+             </property>
+            </item>
            </widget>
            <widget class="QLabel" name="label_26">
             <property name="geometry">
@@ -1050,6 +1109,250 @@ QPushButton:hover {
             <property name="text">
              <string>Parameter Name</string>
             </property>
+           </widget>
+           <widget class="QWidget" name="editMinMaxInt" native="true">
+            <property name="geometry">
+             <rect>
+              <x>390</x>
+              <y>310</y>
+              <width>120</width>
+              <height>111</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QWidget {
+	background-color: white;
+}</string>
+            </property>
+            <widget class="QSpinBox" name="editMinInt">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>91</width>
+               <height>24</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_7">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>20</y>
+               <width>60</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>min</string>
+             </property>
+            </widget>
+            <widget class="QSpinBox" name="editMaxInt">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>40</y>
+               <width>91</width>
+               <height>24</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_28">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>60</y>
+               <width>60</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>max</string>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="editMinMaxDouble" native="true">
+            <property name="geometry">
+             <rect>
+              <x>390</x>
+              <y>309</y>
+              <width>120</width>
+              <height>111</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QWidget {
+	background-color: white;
+}</string>
+            </property>
+            <widget class="QDoubleSpinBox" name="editMinDouble">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>91</width>
+               <height>24</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_29">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>20</y>
+               <width>60</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>min</string>
+             </property>
+            </widget>
+            <widget class="QDoubleSpinBox" name="editMaxDouble">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>40</y>
+               <width>91</width>
+               <height>24</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_30">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>60</y>
+               <width>60</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>max</string>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="addMinMaxInt" native="true">
+            <property name="geometry">
+             <rect>
+              <x>380</x>
+              <y>30</y>
+              <width>120</width>
+              <height>111</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QWidget {
+	background-color: white;
+}</string>
+            </property>
+            <widget class="QSpinBox" name="addMinInt">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>91</width>
+               <height>24</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QSpinBox" name="addMaxInt">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>40</y>
+               <width>91</width>
+               <height>24</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_31">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>20</y>
+               <width>60</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>min</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_32">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>60</y>
+               <width>60</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>max</string>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="addMinMaxDouble" native="true">
+            <property name="geometry">
+             <rect>
+              <x>380</x>
+              <y>29</y>
+              <width>120</width>
+              <height>111</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QWidget {
+	background-color: white;
+}</string>
+            </property>
+            <widget class="QDoubleSpinBox" name="addMinDouble">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>91</width>
+               <height>24</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QDoubleSpinBox" name="addMaxDouble">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>40</y>
+               <width>91</width>
+               <height>24</height>
+              </rect>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_33">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>20</y>
+               <width>60</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>min</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_34">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>60</y>
+               <width>60</width>
+               <height>16</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>max</string>
+             </property>
+            </widget>
            </widget>
           </widget>
          </widget>

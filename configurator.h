@@ -2,6 +2,7 @@
 #define CONFIGURATOR_H
 
 #include <QMainWindow>
+#include <QPushButton>
 #include "json.hpp"
 #include "swockets.hpp"
 #include <vector>
@@ -10,6 +11,8 @@ class ConfiguratorHandler : public SwocketHandler
 public:
     ConfiguratorHandler(){}
     ~ConfiguratorHandler(){}
+    nlohmann::json cml;
+    nlohmann::json tsl;
 
     static nlohmann::json pack_message(std::string m_type){
         nlohmann::json message;
@@ -49,8 +52,10 @@ public:
 
     virtual void connect(int sock) {
         std::cout << "connect initiated" << std::endl;
-        nlohmann::json cml = swocket->receive();
-        nlohmann::json tsl = swocket->receive();
+        cml = swocket->receive();
+        cml = cml["Payload"];
+        tsl = swocket->receive();
+        tsl = tsl["Payload"];
         std::cout << "connected" << std::endl;
     }
 
@@ -59,7 +64,14 @@ public:
         throw("Handshake unsuccessful");
     }
 };
+
+class QPushButtonIndexed : public QPushButton
+{
+public:
+    int index;
+};
 namespace Ui {
+
 class Configurator;
 }
 
@@ -73,13 +85,26 @@ public:
 
 private:
     Ui::Configurator *ui;
-    std::vector<Swockets*> handles{};
+    std::vector<Swockets*> swockets{};
+    std::vector<ConfiguratorHandler*> handles{};
     void resetButtons();
+    int selectedController{-1};
+    void fillData();
+    int currentInd = -1;
+    Swockets* currentSwocket;
+    ConfiguratorHandler* currentHandler;
+    void resetMinMax();
 private slots:
     void on_addClientButton_clicked();
     void on_tasksButton_clicked();
     void on_comandsButton_clicked();
     void on_updateButton_clicked();
+    void on_disconnectButton_clicked();
+    void edit_this();
+    void commandSelectionChanged(const QString&);
+    void taskSelectionChanged(const QString&);
+    void addParamChanged(const QString&);
+    void editParamChanged(const QString&);
 };
 
 #endif // CONFIGURATOR_H

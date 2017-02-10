@@ -26,136 +26,147 @@ class Swockets;
 class SwocketHandler
 {
 public:
-	SwocketHandler(){}
-	~SwocketHandler(){}
+    SwocketHandler(){}
+    ~SwocketHandler(){}
 
-	Swockets *swocket;
-	
-	virtual bool handshake(int sock) {
-		std::cout << "handshaking" << std::endl;
-		return true;
-	}
+    Swockets *swocket;
 
-	virtual void recv(nlohmann::json recvObj) {
-		std::cout << recvObj << std::endl;
-	}
+    virtual bool handshake(int sock=-1) {
+        std::cout << "handshaking" << std::endl;
+        return true;
+    }
 
-	virtual void disconnect() {
-		std::cout << "disconnected" << std::endl;
-	}
+    virtual void recv(nlohmann::json recvObj) {
+        std::cout << recvObj << std::endl;
+    }
 
-	virtual void connect(int sock) {
-		std::cout << "connected" << std::endl;
-	}
+    virtual void disconnect() {
+        std::cout << "disconnected" << std::endl;
+    }
 
-	virtual void handshake_unsuccessful() {
-		std::cout << "handshake unsuccessful" << std::endl;
-	}
+    virtual void connect(int sock) {
+        std::cout << "connected" << std::endl;
+    }
+
+    virtual void handshake_unsuccessful() {
+        std::cout << "handshake unsuccessful" << std::endl;
+    }
 };
 
 class Swockets
 {
 private:
-	enum SwocketMode mode_;
-	SwocketHandler *handle_;
-	bool RUNNING = true;
-	int sock_;
-	std::thread receive_thread_;
+    enum SwocketMode mode_;
+    bool RUNNING = true;
+    int sock_;
+    std::thread receive_thread_;
 
-	char recv_buffer[1024]; 
-	int bytes_recvd{};
- 
-	void client_negotiate() {
-		if(handle_->handshake(sock_)) {
-			handle_->connect(sock_);
-			
-			receive_thread_ = std::thread(&Swockets::receive_thread, this, sock_);
-		} else {
-			handle_->handshake_unsuccessful();
-			close(sock_);
-		}
-	}
+    char recv_buffer[1024];
+    int bytes_recvd{};
 
-	nlohmann::json receive_one_message(int sock) {
-		nlohmann::json j;
-		std::string msg{};
-		while(RUNNING) {
-			try {
-				bytes_recvd = recv(sock,recv_buffer,1024, 0);
-				if(bytes_recvd <= 0) {
-					close(sock);
-					handle_->disconnect();
-					RUNNING = false;
-				}
-				msg+=recv_buffer;
+    void client_negotiate() {
+        if(handle_->handshake(sock_)) {
+            handle_->connect(sock_);
 
-				j = nlohmann::json::parse(msg);
-				return j;
-			} catch (const std::invalid_argument& e) {
-			}
-		}
-		return j;
-	} 
+            receive_thread_ = std::thread(&Swockets::receive_thread, this, sock_);
+        } else {
+            handle_->handshake_unsuccessful();
+            close(sock_);
+        }
+    }
 
-	void receive_thread(int sock) {
-		while(RUNNING) {
-			nlohmann::json recvdObj = receive_one_message(sock);
-	
-			handle_->recv(recvdObj);
-		}
-	}
+    nlohmann::json receive_one_message(int sock) {
+        nlohmann::json j;
+        std::string msg{};
+        while(RUNNING) {
+            try {
+                bytes_recvd = recv(sock,recv_buffer,1024, 0);
+                if(bytes_recvd <= 0) {
+                    close(sock);
+                    handle_->disconnect();
+                    RUNNING = false;
+                    return nlohmann::json();
+                }
+                msg+=recv_buffer;
+
+                j = nlohmann::json::parse(msg);
+                return j;
+            } catch (const std::invalid_argument& e) {
+            }
+        }
+        return j;
+    }
+
+    void receive_thread(int sock) {
+        while(RUNNING) {
+            try {
+                nlohmann::json recvdObj = receive_one_message(sock);
+                handle_->recv(recvdObj);
+            } catch(...) {
+                std::cout << "error" << std::endl;
+            }
+        }
+        std::cout << "stop" << std::endl;
+    }
 public:
-	Swockets(SwocketMode mode, SwocketHandler *handle, std::string host, int port = 6666, int backlog = 1) {
-		mode_ = mode;
-		handle_ = handle;
-		handle_->swocket = this;
+    SwocketHandler *handle_;
+    Swockets(SwocketMode mode, SwocketHandler *handle, std::string host, int port = 6666, int backlog = 1) {
+        mode_ = mode;
+        handle_ = handle;
+        handle_->swocket = this;
 
-		if (mode_ == SwocketMode::ISSERVER) {
-			throw("NOT YET SUPPORTED");
-		} else {
-        	sock_ = socket(AF_INET , SOCK_STREAM , 0);
+        if (mode_ == SwocketMode::ISSERVER) {
+            throw("NOT YET SUPPORTED");
+        } else {
+            sock_ = socket(AF_INET , SOCK_STREAM , 0);
 
-    		struct sockaddr_in server;
-			unsigned long addr;
+            struct sockaddr_in server;
+            unsigned long addr;
 
-			memset( &server, 0, sizeof (server));
+            memset( &server, 0, sizeof (server));
 
-			addr = inet_addr( host.c_str() );
-			memcpy( (char *)&server.sin_addr, &addr, sizeof(addr));
-			server.sin_family = AF_INET;
-			server.sin_port = htons(port);
-	
-			if (connect(sock_,(struct sockaddr*)&server, sizeof(server)) < 0){
-				throw("Connect error");
-			}
+            addr = inet_addr( host.c_str() );
+            memcpy( (char *)&server.sin_addr, &addr, sizeof(addr));
+            server.sin_family = AF_INET;
+            server.sin_port = htons(port);
 
-			client_negotiate();
-		}
-	}
+            if (connect(sock_,(struct sockaddr*)&server, sizeof(server)) < 0){
+                throw("Connect error");
+            }
 
-	nlohmann::json receive(int sock = -1) {
-		if (mode_ == SwocketMode::ISCLIENT) {
-			sock = sock_;
-		}
-		
-		return receive_one_message(sock);
-	}
+            client_negotiate();
+        }
+    }
 
-	void send(nlohmann::json msg, int sock = -1) {
-		if (mode_ == SwocketMode::ISCLIENT) {
-			sock = sock_;
-		}
+    void stop() {
+        RUNNING = false;
+        close(sock_);
+        handle_->disconnect();
+    }
 
-		std::string sendStr = msg.dump(0);
+    nlohmann::json receive(int sock = -1) {
+        if (mode_ == SwocketMode::ISCLIENT) {
+            sock = sock_;
+        }
 
-		sendStr.append(std::string((sendStr.size()/1024+1)*1024-sendStr.size(), ' '));
+        return receive_one_message(sock);
+    }
 
-		for(int i = 0; i < sendStr.size()/1024; i++) {
-			std::string part = sendStr.substr(i*1024,1024);
-			::send(sock, part.c_str(), 1024, 0);
-		}
-	}
+    void send(nlohmann::json msg, int sock = -1) {
+        if (mode_ == SwocketMode::ISCLIENT) {
+            sock = sock_;
+        }
 
-	~Swockets(){}
+        std::string sendStr = msg.dump(0);
+
+        sendStr.append(std::string((sendStr.size()/1024+1)*1024-sendStr.size(), ' '));
+
+        for(int i = 0; i < sendStr.size()/1024; i++) {
+            std::string part = sendStr.substr(i*1024,1024);
+            ::send(sock, part.c_str(), 1024, 0);
+        }
+    }
+
+    ~Swockets(){}
 };
 #endif
