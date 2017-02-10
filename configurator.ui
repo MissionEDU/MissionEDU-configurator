@@ -669,8 +669,7 @@ QPushButton:hover {
             </rect>
            </property>
            <property name="styleSheet">
-            <string notr="true">
-</string>
+            <string notr="true"/>
            </property>
            <widget class="QLabel" name="label_16">
             <property name="geometry">
@@ -1355,6 +1354,10 @@ QPushButton:hover {
             </widget>
            </widget>
           </widget>
+          <zorder>commandWidget</zorder>
+          <zorder>horizontalLayoutWidget</zorder>
+          <zorder>line</zorder>
+          <zorder>tasksWidget</zorder>
          </widget>
         </item>
        </layout>

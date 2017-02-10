@@ -3,6 +3,7 @@
 #include <QMessageBox>
 #include <QInputDialog>
 #include <QDir>
+#include <QCheckBox>
 #include <limits.h>
 #include <float.h>
 using namespace nlohmann;
@@ -184,11 +185,33 @@ void Configurator::edit_this() {
         json task = *it;
         string task_name = task["TaskName"];
         tasks<<QString::fromStdString(task_name);
+        cout << "addded task" << endl;
     }
     for (json::iterator it = cml.begin(); it != cml.end(); ++it) {
         json command = *it;
         string command_name = command["CommandName"];
         commands<<QString::fromStdString(command_name);
+
+        QListWidgetItem* widgetItem = new QListWidgetItem();
+        QWidget* widget = new QWidget();
+        QCheckBox* checkBox;
+
+        // Create Disconnect Button and surrounding pane
+        checkBox = new QCheckBox();
+        checkBox->setText(QString::fromStdString(command_name));
+        QVBoxLayout* checkBoxLayout = new QVBoxLayout();
+        checkBoxLayout->addWidget(checkBox);
+        checkBoxLayout->setMargin(0);
+        checkBoxLayout->setSpacing(0);
+
+
+        widget->setLayout(checkBoxLayout);
+
+        widgetItem->setSizeHint(QSize(widgetItem->sizeHint().width(), 30));
+        ui->addSelectFunctions->addItem(widgetItem);
+        ui->addSelectFunctions->setItemWidget(widgetItem, widget);
+        ui->editSelectFunctions->addItem(widgetItem);
+        ui->editSelectFunctions->setItemWidget(widgetItem, widget);
     }
 
     ui->editChooseCombobox->clear();
@@ -223,8 +246,6 @@ void Configurator::commandSelectionChanged(const QString&) {
             }
         }
 
-
-
         ui->editCommandCode->document()->setPlainText(QString::fromStdString(command_code));
         ui->editCommandName->setText(QString::fromStdString(command_name));
 
@@ -244,18 +265,21 @@ void Configurator::taskSelectionChanged(const QString&) {
 
     if(ui->editChooseCombobox->currentIndex() >= 0) {
         json currentTask = currentHandler->tsl[ui->editChooseCombobox->currentIndex()];
-
-        cout << currentHandler->tsl << endl;
         string task_name = currentTask["TaskName"];
         string task_short_desc = currentTask["TaskDesc"]["ShortDesc"];
         string task_long_desc = currentTask["TaskDesc"]["LongDesc"];
         int task_uid = currentTask["TaskUID"];
-        //json task_commands_available = currentTask["CommandsAvailable"];
+        json task_commands_available = currentTask["CommandsAvailable"];
 
         ui->editTaskLongDesc->document()->setPlainText(QString::fromStdString(task_long_desc));
         ui->editTaskShortDesc->setText(QString::fromStdString(task_short_desc));
         ui->editTaskName->setText(QString::fromStdString(task_name));
         ui->editUIDLabel->setText(QString::number(task_uid));
+
+
+        for (json::iterator it = task_commands_available.begin(); it != task_commands_available.end(); ++it) {
+
+        }
     }
 }
 void Configurator::resetMinMax() {
