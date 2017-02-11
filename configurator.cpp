@@ -164,6 +164,30 @@ void Configurator::on_disconnectButton_clicked() {
     ui->connectedList->setRowHidden(sender->index,true);
 }
 
+void Configurator::add_commands_to_list(ConfiguratorHandler* handle, QListWidget* list) {
+    for (json::iterator it = handle->cml.begin(); it != handle->cml.end(); ++it) {
+        json command = *it;
+        string command_name = command["CommandName"];
+        QListWidgetItem* widgetItem = new QListWidgetItem();
+        QWidget* widget = new QWidget();
+        QCheckBox* checkBox;
+
+        // Create Disconnect Button and surrounding pane
+        checkBox = new QCheckBox();
+        checkBox->setText(QString::fromStdString(command_name));
+        QVBoxLayout* checkBoxLayout = new QVBoxLayout();
+        checkBoxLayout->addWidget(checkBox);
+        checkBoxLayout->setMargin(0);
+        checkBoxLayout->setSpacing(0);
+
+        widget->setLayout(checkBoxLayout);
+
+        widgetItem->setSizeHint(QSize(widgetItem->sizeHint().width(), 30));
+        list->addItem(widgetItem);
+        list->setItemWidget(widgetItem, widget);
+    }
+}
+
 void Configurator::edit_this() {
     QObject *senderObj = sender();
     QPushButton *senderButton = qobject_cast<QPushButton*>(senderObj);
@@ -188,33 +212,15 @@ void Configurator::edit_this() {
         tasks<<QString::fromStdString(task_name);
         cout << "addded task" << endl;
     }
+
     for (json::iterator it = cml.begin(); it != cml.end(); ++it) {
         json command = *it;
         string command_name = command["CommandName"];
         commands<<QString::fromStdString(command_name);
-
-        QListWidgetItem* widgetItem = new QListWidgetItem();
-        QWidget* widget = new QWidget();
-        QCheckBox* checkBox;
-
-        // Create Disconnect Button and surrounding pane
-        checkBox = new QCheckBox();
-        checkBox->setText(QString::fromStdString(command_name));
-        QVBoxLayout* checkBoxLayout = new QVBoxLayout();
-        checkBoxLayout->addWidget(checkBox);
-        checkBoxLayout->setMargin(0);
-        checkBoxLayout->setSpacing(0);
-
-
-        widget->setLayout(checkBoxLayout);
-
-        widgetItem->setSizeHint(QSize(widgetItem->sizeHint().width(), 30));
-        ui->addSelectFunctions->addItem(widgetItem);
-        ui->addSelectFunctions->setItemWidget(widgetItem, widget);
-        ui->editSelectFunctions->addItem(widgetItem);
-        ui->editSelectFunctions->setItemWidget(widgetItem, widget);
     }
 
+    add_commands_to_list(handle, ui->addSelectFunctions);
+    add_commands_to_list(handle, ui->editSelectFunctions);
     ui->editChooseCombobox->clear();
     ui->editChooseCombobox->addItems(tasks);
     ui->editChoose->clear();
@@ -285,7 +291,17 @@ void Configurator::taskSelectionChanged(const QString&) {
 
 
         for (json::iterator it = task_commands_available.begin(); it != task_commands_available.end(); ++it) {
-
+           string command = (*it);
+            for(int i = 0; i < ui->editSelectFunctions->count(); ++i)
+            {
+                QListWidgetItem* item = ui->editSelectFunctions->item(i);
+                QWidget* widget = dynamic_cast<QWidget*>(ui->editSelectFunctions->itemWidget(item));
+                QVBoxLayout* layout = dynamic_cast<QVBoxLayout*>(widget->layout());
+                cout << layout->count() << endl;
+                QCheckBox* checkBox = dynamic_cast<QCheckBox*>(layout->itemAt(0)->widget());
+                if(checkBox->text().toStdString() == command)
+                    checkBox->setChecked(true);
+            }
         }
     }
 }

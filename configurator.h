@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include "json.hpp"
 #include "swockets.hpp"
+#include <QListWidget>
 #include <vector>
 class ConfiguratorHandler : public SwocketHandler
 {
@@ -105,6 +106,7 @@ private slots:
     void taskSelectionChanged(const QString&);
     void addParamChanged(const QString&);
     void editParamChanged(const QString&);
+    void add_commands_to_list(ConfiguratorHandler* handle, QListWidget* list);
 };
 
 #endif // CONFIGURATOR_H

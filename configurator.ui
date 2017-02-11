@@ -709,7 +709,7 @@ QPushButton:hover {
              <string>Edit Command</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="addClientButton_4">
+           <widget class="QPushButton" name="addCommandButton">
             <property name="geometry">
              <rect>
               <x>0</x>
@@ -744,7 +744,7 @@ QPushButton:hover {
              <string>Add</string>
             </property>
            </widget>
-           <widget class="QPushButton" name="addClientButton_5">
+           <widget class="QPushButton" name="editCommandButton">
             <property name="geometry">
              <rect>
               <x>0</x>
@@ -1396,8 +1396,8 @@ QPushButton:hover {
            <zorder>editMinMaxDouble</zorder>
            <zorder>label_16</zorder>
            <zorder>label_17</zorder>
-           <zorder>addClientButton_4</zorder>
-           <zorder>addClientButton_5</zorder>
+           <zorder>addCommandButton</zorder>
+           <zorder>editCommandButton</zorder>
            <zorder>editChoose</zorder>
            <zorder>label_18</zorder>
            <zorder>editCommandName</zorder>
