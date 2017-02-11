@@ -107,6 +107,10 @@ private slots:
     void addParamChanged(const QString&);
     void editParamChanged(const QString&);
     void add_commands_to_list(ConfiguratorHandler* handle, QListWidget* list);
+    void on_editCommandButton_clicked();
+    void on_addCommandButton_clicked();
+    void on_editTaskButton_clicked();
+    void on_addTaskButton_clicked();
 };
 
 #endif // CONFIGURATOR_H

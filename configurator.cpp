@@ -340,6 +340,19 @@ void Configurator::editParamChanged(const QString&) {
     }
 }
 
+void Configurator::on_editCommandButton_clicked() {
+    cout << "Edit Command" << endl;
+}
+void Configurator::on_addCommandButton_clicked() {
+    cout << "Add Command" << endl;
+}
+void Configurator::on_editTaskButton_clicked() {
+    cout << "Edit Task" << endl;
+}
+void Configurator::on_addTaskButton_clicked() {
+    cout << "Add Task" << endl;
+}
+
 Configurator::~Configurator()
 {
     delete ui;
