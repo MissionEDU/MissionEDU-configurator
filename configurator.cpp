@@ -28,6 +28,7 @@ Configurator::Configurator(QWidget *parent) :
     ui->editCommandCode->setTabStopWidth(20);
     ui->addCommandCode->setTabStopWidth(20);
     resetMinMax();
+    ui->addMinMaxInt->show();
 
     ui->addMaxInt->setMinimum(INT_MIN);
     ui->addMaxInt->setMaximum(INT_MAX);
@@ -234,16 +235,22 @@ void Configurator::commandSelectionChanged(const QString&) {
             string command_param_name = currentCommand["CommandParams"][0]["CommandParamName"];
             ui->editParameterName->setText(QString::fromStdString(command_param_name));
             if(command_param_data_type == "double"){
-                resetMinMax();
                 ui->editMinDouble->setValue(currentCommand["CommandParams"][0]["CommandParamRanges"]["min"]);
                 ui->editMaxDouble->setValue(currentCommand["CommandParams"][0]["CommandParamRanges"]["max"]);
+                ui->editMinMaxInt->hide();
                 ui->editMinMaxDouble->show();
             }else if(command_param_data_type == "int"){
-                resetMinMax();
                 ui->editMinInt->setValue(currentCommand["CommandParams"][0]["CommandParamRanges"]["min"]);
                 ui->editMaxInt->setValue(currentCommand["CommandParams"][0]["CommandParamRanges"]["max"]);
+                ui->editMinMaxDouble->hide();
                 ui->editMinMaxInt->show();
+            } else {
+                ui->editMinMaxInt->hide();
+                ui->editMinMaxDouble->hide();
             }
+        } else {
+            ui->editMinMaxInt->hide();
+            ui->editMinMaxDouble->hide();
         }
 
         ui->editCommandCode->document()->setPlainText(QString::fromStdString(command_code));
@@ -289,22 +296,30 @@ void Configurator::resetMinMax() {
     ui->editMinMaxInt->hide();
 }
 void Configurator::addParamChanged(const QString&) {
-    resetMinMax();
     if(ui->addParameterChoose->currentIndex() >= 0) {
         if (ui->addParameterChoose->currentText().toStdString() == "int") {
+            ui->addMinMaxDouble->hide();
             ui->addMinMaxInt->show();
         } else if (ui->addParameterChoose->currentText().toStdString() == "double") {
+            ui->addMinMaxInt->hide();
             ui->addMinMaxDouble->show();
+        } else {
+            ui->addMinMaxDouble->hide();
+            ui->addMinMaxInt->hide();
         }
     }
 }
 void Configurator::editParamChanged(const QString&) {
-    resetMinMax();
     if (ui->editParameterChoose->currentIndex() >= 0) {
         if (ui->editParameterChoose->currentText().toStdString() == "int") {
+            ui->editMinMaxDouble->hide();
             ui->editMinMaxInt->show();
         } else if (ui->editParameterChoose->currentText().toStdString() == "double") {
+            ui->editMinMaxInt->hide();
             ui->editMinMaxDouble->show();
+        } else {
+            ui->editMinMaxDouble->hide();
+            ui->editMinMaxInt->hide();
         }
     }
 }

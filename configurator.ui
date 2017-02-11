@@ -1142,6 +1142,10 @@ QPushButton:hover {
                <height>16</height>
               </rect>
              </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgba(0,0,0,0);
+</string>
+             </property>
              <property name="text">
               <string>min</string>
              </property>
@@ -1164,6 +1168,10 @@ QPushButton:hover {
                <width>60</width>
                <height>16</height>
               </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgba(0,0,0,0);
+</string>
              </property>
              <property name="text">
               <string>max</string>
@@ -1203,6 +1211,13 @@ QPushButton:hover {
                <height>16</height>
               </rect>
              </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgba(0,0,0,0);
+
+
+
+</string>
+             </property>
              <property name="text">
               <string>min</string>
              </property>
@@ -1225,6 +1240,11 @@ QPushButton:hover {
                <width>60</width>
                <height>16</height>
               </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgba(0,0,0,0);
+
+</string>
              </property>
              <property name="text">
               <string>max</string>
@@ -1274,6 +1294,10 @@ QPushButton:hover {
                <height>16</height>
               </rect>
              </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgba(0,0,0,0);
+</string>
+             </property>
              <property name="text">
               <string>min</string>
              </property>
@@ -1286,6 +1310,10 @@ QPushButton:hover {
                <width>60</width>
                <height>16</height>
               </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgba(0,0,0,0);
+</string>
              </property>
              <property name="text">
               <string>max</string>
@@ -1335,6 +1363,10 @@ QPushButton:hover {
                <height>16</height>
               </rect>
              </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgba(0,0,0,0);
+</string>
+             </property>
              <property name="text">
               <string>min</string>
              </property>
@@ -1348,16 +1380,46 @@ QPushButton:hover {
                <height>16</height>
               </rect>
              </property>
+             <property name="styleSheet">
+              <string notr="true">background-color: rgba(0,0,0,0);
+
+</string>
+             </property>
              <property name="text">
               <string>max</string>
              </property>
             </widget>
            </widget>
+           <zorder>editMinMaxInt</zorder>
+           <zorder>addMinMaxInt</zorder>
+           <zorder>addMinMaxDouble</zorder>
+           <zorder>editMinMaxDouble</zorder>
+           <zorder>label_16</zorder>
+           <zorder>label_17</zorder>
+           <zorder>addClientButton_4</zorder>
+           <zorder>addClientButton_5</zorder>
+           <zorder>editChoose</zorder>
+           <zorder>label_18</zorder>
+           <zorder>editCommandName</zorder>
+           <zorder>editCommandCode</zorder>
+           <zorder>label_19</zorder>
+           <zorder>editParameterChoose</zorder>
+           <zorder>editReturnChoose</zorder>
+           <zorder>label_20</zorder>
+           <zorder>label_21</zorder>
+           <zorder>editParameterName</zorder>
+           <zorder>label_22</zorder>
+           <zorder>addCommandName</zorder>
+           <zorder>label_23</zorder>
+           <zorder>addCommandCode</zorder>
+           <zorder>label_24</zorder>
+           <zorder>addReturnChoose</zorder>
+           <zorder>label_25</zorder>
+           <zorder>addParameterChoose</zorder>
+           <zorder>label_26</zorder>
+           <zorder>addParameterName</zorder>
+           <zorder>label_27</zorder>
           </widget>
-          <zorder>commandWidget</zorder>
-          <zorder>horizontalLayoutWidget</zorder>
-          <zorder>line</zorder>
-          <zorder>tasksWidget</zorder>
          </widget>
         </item>
        </layout>
