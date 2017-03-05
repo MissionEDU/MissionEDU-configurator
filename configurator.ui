@@ -1496,10 +1496,6 @@ QPushButton:hover {
            <zorder>label_27</zorder>
            <zorder>deleteCommandButton</zorder>
           </widget>
-          <zorder>commandWidget</zorder>
-          <zorder>horizontalLayoutWidget</zorder>
-          <zorder>line</zorder>
-          <zorder>tasksWidget</zorder>
          </widget>
         </item>
        </layout>

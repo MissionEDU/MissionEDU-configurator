@@ -351,21 +351,131 @@ void Configurator::editParamChanged(const QString&) {
 
 void Configurator::on_editCommandButton_clicked() {
     cout << "Edit Command" << endl;
-    json ual = ConfiguratorHandler::pack_message("UAL");
+    json ccm = ConfiguratorHandler::pack_message("CCM");
 
-    currentSwocket->send(ual);
+    ccm["Payload"]["CommandName"] = ui->editCommandName->text().toStdString();
+    ccm["Payload"]["CommandReturn"] = ui->editReturnChoose->currentText().toStdString();
+    ccm["Payload"]["Code"] = ui->editCommandCode->toPlainText().toStdString();
+
+    if(ui->editParameterChoose->currentText().toStdString() == "double"){
+        ccm["Payload"]["CommandParams"] = {{{"CommandParamName",ui->editParameterName->text().toStdString()}, {"CommandParamDataType", ui->editParameterChoose->currentText().toStdString()}, {"CommandParamRanges", {{"min", ui->editMinDouble->value()},{"max",ui->editMaxDouble->value()}}}}};
+    } else if (ui->editParameterChoose->currentText().toStdString() == "int") {
+        ccm["Payload"]["CommandParams"] = {{{"CommandParamName",ui->editParameterName->text().toStdString()}, {"CommandParamDataType", ui->editParameterChoose->currentText().toStdString()}, {"CommandParamRanges", {{"min", ui->editMinInt->value()},{"max",ui->editMaxInt->value()}}}}};
+    } else if (ui->editParameterChoose->currentText().toStdString() == "bool") {
+        ccm["Payload"]["CommandParams"] = {{{"CommandParamName",ui->editParameterName->text().toStdString()}, {"CommandParamDataType", ui->editParameterChoose->currentText().toStdString()}}};
+    } else {
+        ccm["Payload"]["CommandParams"] = {{{"CommandParamDataType", ui->editParameterChoose->currentText().toStdString()}}};
+    }
+
+    currentSwocket->send(ccm);
+    //////////////
+    json message = currentHandler->receive();
+    string resp_type = message["MessageType"];
+    if(resp_type == "CER") {
+        string error = message["Payload"]["ErrorDescription"];
+        QMessageBox msgBox;
+        msgBox.setText(QString::fromStdString(error));
+        msgBox.exec();
+    } else {
+        currentHandler->cml = message["Payload"];
+        json cml = currentHandler->cml;
+
+        cout << cml << endl;
+        QStringList commands{};
+
+        for (json::iterator it = cml.begin(); it != cml.end(); ++it) {
+            json command = *it;
+            string command_name = command["CommandName"];
+            commands<<QString::fromStdString(command_name);
+        }
+
+        ui->editChoose->clear();
+        ui->editChoose->addItems(commands);
+
+    }
 }
 void Configurator::on_addCommandButton_clicked() {
     cout << "Add Command" << endl;
-    json ual = ConfiguratorHandler::pack_message("UAL");
+    json acm = ConfiguratorHandler::pack_message("ACM");
 
-    currentSwocket->send(ual);
+    acm["Payload"]["CommandName"] = ui->addCommandName->text().toStdString();
+    acm["Payload"]["CommandReturn"] = ui->addReturnChoose->currentText().toStdString();
+    acm["Payload"]["Code"] = ui->addCommandCode->toPlainText().toStdString();
+
+    if(ui->addParameterChoose->currentText().toStdString() == "double"){
+        acm["Payload"]["CommandParams"] = {{{"CommandParamName",ui->addParameterName->text().toStdString()}, {"CommandParamDataType", ui->addParameterChoose->currentText().toStdString()}, {"CommandParamRanges", {{"min", ui->addMinDouble->value()},{"max",ui->addMaxDouble->value()}}}}};
+    } else if (ui->addParameterChoose->currentText().toStdString() == "int") {
+        acm["Payload"]["CommandParams"] = {{{"CommandParamName",ui->addParameterName->text().toStdString()}, {"CommandParamDataType", ui->addParameterChoose->currentText().toStdString()}, {"CommandParamRanges", {{"min", ui->addMinInt->value()},{"max",ui->addMaxInt->value()}}}}};
+    } else if (ui->addParameterChoose->currentText().toStdString() == "bool") {
+        acm["Payload"]["CommandParams"] = {{{"CommandParamName",ui->addParameterName->text().toStdString()}, {"CommandParamDataType", ui->addParameterChoose->currentText().toStdString()}}};
+    } else {
+        acm["Payload"]["CommandParams"] = {{{"CommandParamDataType", ui->addParameterChoose->currentText().toStdString()}}};
+    }
+
+    currentSwocket->send(acm);
+    //////////////
+    json message = currentHandler->receive();
+    string resp_type = message["MessageType"];
+    if(resp_type == "CER") {
+        string error = message["Payload"]["ErrorDescription"];
+        QMessageBox msgBox;
+        msgBox.setText(QString::fromStdString(error));
+        msgBox.exec();
+    } else {
+        currentHandler->cml = message["Payload"];
+        json cml = currentHandler->cml;
+
+        cout << cml << endl;
+        QStringList commands{};
+
+        for (json::iterator it = cml.begin(); it != cml.end(); ++it) {
+            json command = *it;
+            string command_name = command["CommandName"];
+            commands<<QString::fromStdString(command_name);
+        }
+
+        ui->editChoose->clear();
+        ui->editChoose->addItems(commands);
+
+        add_commands_to_list(currentHandler, ui->addSelectFunctions, &add_check_boxes);
+        add_commands_to_list(currentHandler, ui->editSelectFunctions, &edit_check_boxes);
+
+    }
 }
 void Configurator::on_deleteCommandButton_clicked() {
     cout << "Delete Command" << endl;
-    json ual = ConfiguratorHandler::pack_message("UAL");
+    json dcm = ConfiguratorHandler::pack_message("DCM");
 
-    currentSwocket->send(ual);
+    dcm["Payload"]["CommandName"] = ui->editCommandName->text().toStdString();
+
+    currentSwocket->send(dcm);
+    //////////////
+    json message = currentHandler->receive();
+    string resp_type = message["MessageType"];
+    if(resp_type == "CER") {
+        string error = message["Payload"]["ErrorDescription"];
+        QMessageBox msgBox;
+        msgBox.setText(QString::fromStdString(error));
+        msgBox.exec();
+    } else {
+        currentHandler->cml = message["Payload"];
+        json cml = currentHandler->cml;
+
+        cout << cml << endl;
+        QStringList commands{};
+
+        for (json::iterator it = cml.begin(); it != cml.end(); ++it) {
+            json command = *it;
+            string command_name = command["CommandName"];
+            commands<<QString::fromStdString(command_name);
+        }
+
+        ui->editChoose->clear();
+        ui->editChoose->addItems(commands);
+
+        add_commands_to_list(currentHandler, ui->addSelectFunctions, &add_check_boxes);
+        add_commands_to_list(currentHandler, ui->editSelectFunctions, &edit_check_boxes);
+    }
 }
 
 void Configurator::on_editTaskButton_clicked() {
@@ -411,6 +521,9 @@ void Configurator::on_editTaskButton_clicked() {
         }
         ui->editChooseCombobox->clear();
         ui->editChooseCombobox->addItems(tasks);
+
+        add_commands_to_list(currentHandler, ui->addSelectFunctions, &add_check_boxes);
+        add_commands_to_list(currentHandler, ui->editSelectFunctions, &edit_check_boxes);
     }
 }
 void Configurator::on_addTaskButton_clicked() {
