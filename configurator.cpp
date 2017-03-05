@@ -3,7 +3,6 @@
 #include <QMessageBox>
 #include <QInputDialog>
 #include <QDir>
-#include <QCheckBox>
 #include <limits.h>
 #include <float.h>
 using namespace nlohmann;
@@ -164,7 +163,9 @@ void Configurator::on_disconnectButton_clicked() {
     ui->connectedList->setRowHidden(sender->index,true);
 }
 
-void Configurator::add_commands_to_list(ConfiguratorHandler* handle, QListWidget* list) {
+void Configurator::add_commands_to_list(ConfiguratorHandler* handle, QListWidget* list, vector<QCheckBox*>* checkboxes) {
+    list->clear();
+    checkboxes->clear();
     for (json::iterator it = handle->cml.begin(); it != handle->cml.end(); ++it) {
         json command = *it;
         string command_name = command["CommandName"];
@@ -172,8 +173,8 @@ void Configurator::add_commands_to_list(ConfiguratorHandler* handle, QListWidget
         QWidget* widget = new QWidget();
         QCheckBox* checkBox;
 
-        // Create Disconnect Button and surrounding pane
         checkBox = new QCheckBox();
+        checkboxes->push_back(checkBox);
         checkBox->setText(QString::fromStdString(command_name));
         QVBoxLayout* checkBoxLayout = new QVBoxLayout();
         checkBoxLayout->addWidget(checkBox);
@@ -219,8 +220,8 @@ void Configurator::edit_this() {
         commands<<QString::fromStdString(command_name);
     }
 
-    add_commands_to_list(handle, ui->addSelectFunctions);
-    add_commands_to_list(handle, ui->editSelectFunctions);
+    add_commands_to_list(handle, ui->addSelectFunctions, &add_check_boxes);
+    add_commands_to_list(handle, ui->editSelectFunctions, &edit_check_boxes);
     ui->editChooseCombobox->clear();
     ui->editChooseCombobox->addItems(tasks);
     ui->editChoose->clear();
@@ -281,15 +282,23 @@ void Configurator::taskSelectionChanged(const QString&) {
         string task_name = currentTask["TaskName"];
         string task_short_desc = currentTask["TaskDesc"]["ShortDesc"];
         string task_long_desc = currentTask["TaskDesc"]["LongDesc"];
-        int task_uid = currentTask["TaskUID"];
+        string task_uid = currentTask["TaskUID"];
         json task_commands_available = currentTask["CommandsAvailable"];
 
         ui->editTaskLongDesc->document()->setPlainText(QString::fromStdString(task_long_desc));
         ui->editTaskShortDesc->setText(QString::fromStdString(task_short_desc));
         ui->editTaskName->setText(QString::fromStdString(task_name));
-        ui->editUIDLabel->setText(QString::number(task_uid));
+        ui->editUIDLabel->setText(QString::fromStdString(task_uid));
 
-
+        for(int i = 0; i < ui->editSelectFunctions->count(); ++i)
+        {
+            QListWidgetItem* item = ui->editSelectFunctions->item(i);
+            QWidget* widget = dynamic_cast<QWidget*>(ui->editSelectFunctions->itemWidget(item));
+            QVBoxLayout* layout = dynamic_cast<QVBoxLayout*>(widget->layout());
+            cout << layout->count() << endl;
+            QCheckBox* checkBox = dynamic_cast<QCheckBox*>(layout->itemAt(0)->widget());
+            checkBox->setChecked(false);
+        }
         for (json::iterator it = task_commands_available.begin(); it != task_commands_available.end(); ++it) {
            string command = (*it);
             for(int i = 0; i < ui->editSelectFunctions->count(); ++i)
@@ -342,15 +351,132 @@ void Configurator::editParamChanged(const QString&) {
 
 void Configurator::on_editCommandButton_clicked() {
     cout << "Edit Command" << endl;
+    json ual = ConfiguratorHandler::pack_message("UAL");
+
+    currentSwocket->send(ual);
 }
 void Configurator::on_addCommandButton_clicked() {
     cout << "Add Command" << endl;
+    json ual = ConfiguratorHandler::pack_message("UAL");
+
+    currentSwocket->send(ual);
 }
+void Configurator::on_deleteCommandButton_clicked() {
+    cout << "Delete Command" << endl;
+    json ual = ConfiguratorHandler::pack_message("UAL");
+
+    currentSwocket->send(ual);
+}
+
 void Configurator::on_editTaskButton_clicked() {
     cout << "Edit Task" << endl;
+    json cts = ConfiguratorHandler::pack_message("CTS");
+
+    vector<string> functions{};
+    for(int i = 0; i<edit_check_boxes.size(); i++) {
+        QCheckBox* box = edit_check_boxes[i];
+        if(box->isChecked()) {
+            cout << box->text().toStdString() << endl;
+            functions.push_back(box->text().toStdString());
+        }
+    }
+
+    cts["Payload"]["TaskName"] = ui->editTaskName->text().toStdString();
+    cts["Payload"]["TaskDesc"] = json::object();
+    cts["Payload"]["TaskDesc"]["ShortDesc"] = ui->editTaskShortDesc->text().toStdString();
+    cts["Payload"]["TaskDesc"]["LongDesc"] = ui->editTaskLongDesc->toPlainText().toStdString();
+    cts["Payload"]["CommandsAvailable"] = functions;
+    cts["Payload"]["TaskUID"] = ui->editUIDLabel->text().toStdString();
+    currentSwocket->send(cts);
+    //////////////
+    json message = currentHandler->receive();
+    string resp_type = message["MessageType"];
+    if(resp_type == "TSE") {
+        string error = message["Payload"]["ErrorDescription"];
+        QMessageBox msgBox;
+        msgBox.setText(QString::fromStdString(error));
+        msgBox.exec();
+    } else {
+        currentHandler->tsl = message["Payload"];
+        json tsl = currentHandler->tsl;
+
+        cout << tsl << endl;
+        QStringList tasks{};
+
+        for (json::iterator it = tsl.begin(); it != tsl.end(); ++it) {
+            json task = *it;
+            string task_name = task["TaskName"];
+            tasks<<QString::fromStdString(task_name);
+            cout << "addded task" << endl;
+        }
+        ui->editChooseCombobox->clear();
+        ui->editChooseCombobox->addItems(tasks);
+    }
 }
 void Configurator::on_addTaskButton_clicked() {
     cout << "Add Task" << endl;
+    json ats = ConfiguratorHandler::pack_message("ATS");
+
+    vector<string> functions{};
+    for(int i = 0; i<add_check_boxes.size(); i++) {
+        QCheckBox* box = add_check_boxes[i];
+        if(box->isChecked()) {
+            cout << box->text().toStdString() << endl;
+            functions.push_back(box->text().toStdString());
+        }
+    }
+
+    ats["Payload"]["TaskName"] = ui->addTaskName->text().toStdString();
+    ats["Payload"]["TaskDesc"] = json::object();
+    ats["Payload"]["TaskDesc"]["ShortDesc"] = ui->addTaskShortDesc->text().toStdString();
+    ats["Payload"]["TaskDesc"]["LongDesc"] = ui->addTaskLongDesc->toPlainText().toStdString();
+    ats["Payload"]["CommandsAvailable"] = functions;
+    currentSwocket->send(ats);
+    //////////////
+    currentHandler->tsl = (currentHandler->receive())["Payload"];
+    json tsl = currentHandler->tsl;
+
+    cout << tsl << endl;
+    QStringList tasks{};
+
+    for (json::iterator it = tsl.begin(); it != tsl.end(); ++it) {
+        json task = *it;
+        string task_name = task["TaskName"];
+        tasks<<QString::fromStdString(task_name);
+        cout << "addded task" << endl;
+    }
+    ui->editChooseCombobox->clear();
+    ui->editChooseCombobox->addItems(tasks);
+}
+void Configurator::on_deleteTaskButton_clicked() {
+    cout << "Delete Task" << endl;
+    json dts = ConfiguratorHandler::pack_message("DTS");
+    dts["Payload"]["TaskUID"] = ui->editUIDLabel->text().toStdString();
+    currentSwocket->send(dts);
+    //////////////
+    json message = currentHandler->receive();
+    string resp_type = message["MessageType"];
+    if(resp_type == "TSE") {
+        string error = message["Payload"]["ErrorDescription"];
+        QMessageBox msgBox;
+        msgBox.setText(QString::fromStdString(error));
+        msgBox.exec();
+    } else {
+        currentHandler->tsl = message["Payload"];
+        json tsl = currentHandler->tsl;
+
+        cout << tsl << endl;
+        QStringList tasks{};
+
+        for (json::iterator it = tsl.begin(); it != tsl.end(); ++it) {
+            json task = *it;
+            string task_name = task["TaskName"];
+            tasks<<QString::fromStdString(task_name);
+            cout << "addded task" << endl;
+        }
+        ui->editChooseCombobox->clear();
+        ui->editChooseCombobox->addItems(tasks);
+    }
 }
 
 Configurator::~Configurator()

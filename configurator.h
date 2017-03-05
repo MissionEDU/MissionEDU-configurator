@@ -7,6 +7,7 @@
 #include "swockets.hpp"
 #include <QListWidget>
 #include <vector>
+#include <QCheckBox>
 class ConfiguratorHandler : public SwocketHandler
 {
 public:
@@ -64,6 +65,10 @@ public:
         std::cout << "handshake unsuccessful" << std::endl;
         throw("Handshake unsuccessful");
     }
+
+    nlohmann::json receive() {
+        return swocket->receive();
+    }
 };
 
 class QPushButtonIndexed : public QPushButton
@@ -95,6 +100,8 @@ private:
     Swockets* currentSwocket;
     ConfiguratorHandler* currentHandler;
     void resetMinMax();
+    std::vector<QCheckBox*> add_check_boxes{};
+    std::vector<QCheckBox*> edit_check_boxes{};
 private slots:
     void on_addClientButton_clicked();
     void on_tasksButton_clicked();
@@ -106,10 +113,12 @@ private slots:
     void taskSelectionChanged(const QString&);
     void addParamChanged(const QString&);
     void editParamChanged(const QString&);
-    void add_commands_to_list(ConfiguratorHandler* handle, QListWidget* list);
+    void add_commands_to_list(ConfiguratorHandler* handle, QListWidget* list, std::vector<QCheckBox*>* checkboxes);
     void on_editCommandButton_clicked();
     void on_addCommandButton_clicked();
     void on_editTaskButton_clicked();
+    void on_deleteTaskButton_clicked();
+    void on_deleteCommandButton_clicked();
     void on_addTaskButton_clicked();
 };
 

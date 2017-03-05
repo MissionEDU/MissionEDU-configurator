@@ -68,7 +68,6 @@ private:
         if(handle_->handshake(sock_)) {
             handle_->connect(sock_);
 
-            receive_thread_ = std::thread(&Swockets::receive_thread, this, sock_);
         } else {
             handle_->handshake_unsuccessful();
             close(sock_);
@@ -169,4 +168,5 @@ public:
 
     ~Swockets(){}
 };
+
 #endif
